@@ -77,7 +77,7 @@ class ServerDiscovery
         $hosts = $data['hosts'] ?? [];
         $nodes = [];
         foreach ($hosts as $node) {
-            if (isset($node['ip'], $node['port']) && ($node['healthy'] ?? false)) {
+            if (isset($node['ip'], $node['port']) && (! $node['healthy'] ?? false)) {
                 $nodes[] = [
                     'host' => $node['ip'],
                     'port' => $node['port'],
