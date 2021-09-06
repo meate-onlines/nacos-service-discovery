@@ -76,6 +76,7 @@ class ServerDiscovery
         $data = Json::decode((string) $response->getBody());
         $hosts = $data['hosts'] ?? [];
         $nodes = [];
+        print_r($hosts);
         foreach ($hosts as $node) {
             if (isset($node['ip'], $node['port']) && (! $node['healthy'] ?? false)) {
                 $nodes[] = [
