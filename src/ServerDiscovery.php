@@ -76,8 +76,8 @@ class ServerDiscovery
         $data = Json::decode((string) $response->getBody());
         $hosts = $data['hosts'] ?? [];
         $nodes = [];
-        print_r($hosts);
         foreach ($hosts as $node) {
+            //TODO Nacos 2.0.*的bug,获取服务器下失败实例时healthy的转态会返回true
             if (isset($node['ip'], $node['port']) && (! $node['healthy'] ?? false)) {
                 $nodes[] = [
                     'host' => $node['ip'],
