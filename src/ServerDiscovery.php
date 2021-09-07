@@ -16,7 +16,6 @@ use Hyperf\Nacos\Exception\RequestException;
 use Hyperf\Nacos\Exception\RuntimeException;
 use Hyperf\ServiceGovernanceNacos\Client;
 use Hyperf\Utils\Codec\Json;
-use function Swow\Util\var_dump_return;
 
 class ServerDiscovery
 {
