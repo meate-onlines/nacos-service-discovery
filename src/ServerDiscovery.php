@@ -77,14 +77,20 @@ class ServerDiscovery
         $hosts = $data['hosts'] ?? [];
         $nodes = [];
         foreach ($hosts as $node) {
-            //TODO Nacos 2.0.*的bug,获取服务器下失败实例时healthy的转态会返回true
-            print_r($node);
-            if (isset($node['ip'], $node['port']) && (! $node['healthy'] ?? false)) {
-                $nodes[] = [
-                    'host' => $node['ip'],
-                    'port' => $node['port'],
-                    'weight' => $node['weight'] ?? 1,
-                ];
+            //TODO Nacos的bug,获取服务下的实例列表时healthy的状态态只会返回true,需要查询实例详情获取实例的健康状态
+            if (isset($node['ip'], $node['port'])) {
+                $detail = $this->client->instance->detail($node['ip'], (int) $node['port'], $serverName);
+                if ($detail->getStatusCode() !== 200) {
+                    throw new RequestException((string) $detail->getBody(), $detail->getStatusCode());
+                }
+                $healthy = Json::decode((string) $detail->getBody())['healthy'];
+                if ($healthy) {
+                    $nodes[] = [
+                        'host' => $node['ip'],
+                        'port' => $node['port'],
+                        'weight' => $node['weight'] ?? 1,
+                    ];
+                }
             }
         }
 
