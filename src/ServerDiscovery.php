@@ -78,6 +78,7 @@ class ServerDiscovery
         $nodes = [];
         foreach ($hosts as $node) {
             //TODO Nacos 2.0.*的bug,获取服务器下失败实例时healthy的转态会返回true
+            print_r($node);
             if (isset($node['ip'], $node['port']) && (! $node['healthy'] ?? false)) {
                 $nodes[] = [
                     'host' => $node['ip'],
