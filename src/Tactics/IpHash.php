@@ -19,6 +19,6 @@ class IpHash extends HashLogic implements TacticsAlgorithm
     public function getOne(array $nodeList, ?string $clientIp): array
     {
         $nodeList = array_values($nodeList);
-        return $nodeList[$this->hash($clientIp, count($nodeList))];
+        return [$nodeList[$this->hash($clientIp, count($nodeList))]];
     }
 }

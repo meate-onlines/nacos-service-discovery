@@ -29,6 +29,6 @@ class WeightTactics implements TacticsAlgorithm
                 $final = $nodeList[$key];
             }
         }
-        return $final;
+        return [$final];
     }
 }

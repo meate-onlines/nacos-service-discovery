@@ -18,6 +18,6 @@ class Random implements TacticsAlgorithm
     public function getOne(array $nodeList, ?string $clientIp): array
     {
         $randKey = array_rand($nodeList);
-        return $nodeList[$randKey];
+        return [$nodeList[$randKey]];
     }
 }
